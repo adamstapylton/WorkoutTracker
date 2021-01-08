@@ -1,0 +1,46 @@
+﻿@page "/workouts/{WorkoutId:int}/recordworkout"
+
+@if (ApiFinished == 1)
+{
+    <h3>@Workout.Name</h3>
+    <div class="row d-flex mb-2">
+        <a class="btn btn-primary mr-auto" href="workouts/@WorkoutId"><span class="oi oi-arrow-left"></span>Back To Workout</a>
+
+    </div>
+
+    @if (Message != null)
+    {
+        <div class="alert alert-danger">
+            <span>@Message</span>
+        </div>
+    }
+
+    @foreach (var exercise in CompletedExercises)
+    {
+        <div class="mb-2">
+            <h4>@exercise.Exercise.Name</h4>
+            @foreach (var set in exercise.Sets)
+            {
+                <div class="row">
+                    <div class="col">Set @set.SetNumber</div>
+
+                    <div class="col">
+                        <input class="form-control" type="number" @bind-value="set.Weight" />
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="number" @bind-value="set.Reps" />
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="row d-flex">
+        <button class="ml-auto btn btn-primary" @onclick="SaveWorkout">Save Workout Data</button>
+    </div>
+}
+
+
+@code {
+    
+}

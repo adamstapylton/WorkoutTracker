@@ -1,0 +1,72 @@
+﻿@using WorkoutTracker.Shared.Models
+@using WorkoutTracker.Client.Services
+@using WorkoutTracker.Client.FormComponents
+
+
+<li class="exercise-list-item @DragClass d-flex @Mode" @key="Exercise.Id" draggable="true" @ondragstart="DragStart" @ondrop="Drop" @ondragend="StopDrag">
+    <div class="exercise-list-content">
+        <div class="row">
+            <div class="col">
+                <h4>@Exercise.Exercise.Name <span class="h6 text-danger ml-2"> (@Exercise.Exercise.MuscleGroup.Name)</span></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span>Sets</span>
+            </div>
+            <div class="col">
+                <span>Rep Scheme</span>
+            </div>
+            <div class="col">
+                <span>Rest</span>
+            </div>
+            <div class="col">
+                <span>Notes</span>
+            </div>
+        </div>
+
+        <EditForm Model="Exercise" class="row">
+            <ValidationSummary></ValidationSummary>
+            <div class="col">
+                <div class="form-group">
+                    <InputNumberOnInput @bind-Value="Exercise.Sets" class="form-control" @onchange="UpdateExercise"></InputNumberOnInput>
+
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <InputTextOnInput @bind-Value="Exercise.RepScheme" class="form-control" @onchange="UpdateExercise"></InputTextOnInput>
+                </div>
+            </div>
+            <div class="col ">
+                <div class="form-group">
+                    <InputTextOnInput @bind-Value="Exercise.Rest" class="form-control" @onchange="UpdateExercise"></InputTextOnInput>
+                </div>
+            </div>
+            <div class="col ">
+                <div class="form-group">
+                    <InputTextOnInput @bind-Value="Exercise.Notes" class="form-control" @onchange="UpdateExercise"></InputTextOnInput>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+    <div class="ml-auto">
+        <div class="dropleft workout-exercise-dropdown-toggle ">
+            <button class="btn dropdown-toggle weight-log-dropdown-button text-primary" type="button" data-toggle="dropdown">
+                <span class="oi oi-ellipses "></span>
+            </button>
+            <div class="dropdown-menu bg-dark">
+                <button @onclick="DeleteExercise" class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteExerciseModal">
+                    <span class="oi oi-trash"></span> Delete
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+
+</li>
+
+@code {
+    
+}

@@ -1,0 +1,49 @@
+﻿@inherits LayoutComponentBase
+
+
+@*Blazor standard set up - opens app but doesn't let you see unauth pages*@
+
+@*<div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4 auth">
+            <LoginDisplay />
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>*@
+
+
+
+
+
+@*Custom set up below will direct to Login if not authenticated and not enter the app*@
+
+<AuthorizeView>
+    <Authorized>
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+
+
+
+        <div class="main">
+            <div class="top-row px-4 auth">
+                <LoginDisplay />
+                <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <Redirect></Redirect>
+    </NotAuthorized>
+</AuthorizeView>

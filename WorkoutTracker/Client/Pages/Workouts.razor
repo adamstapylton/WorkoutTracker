@@ -1,0 +1,82 @@
+﻿@page "/workouts"
+@using WorkoutTracker.Client.Components;
+@using WorkoutTracker.Shared.Entities;
+
+<h3>Workouts</h3>
+<div class="row mb-2">
+    <div class="d-flex">
+        <button class="btn btn-circle btn-primary ml-auto" data-toggle="modal" data-target="#addWorkoutModal">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>
+
+@if (WorkoutList != null)
+{
+    <div class="row-cols row">
+        @foreach (var workout in WorkoutList)
+        {
+            <WorkoutListItem Workout="workout"></WorkoutListItem>
+        }
+    </div>
+}
+else
+{
+    <LoadingSpinner></LoadingSpinner>
+}
+
+
+<div class="modal fade" id="addWorkoutModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Workout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@NewWorkout" OnValidSubmit="AddWorkout">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label>Workout Name</label>
+                        <InputText @bind-Value="NewWorkout.Name" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Day Scheduled</label>
+                        <InputSelect @bind-Value="NewWorkout.Scheduled" class="form-control">
+                            <option value="0"></option>
+                            @foreach (var day in Enum.GetValues(typeof(Day)))
+                            {
+                                <option value="@day">@day.ToString()</option>
+                            }
+                        </InputSelect>
+                    </div>
+
+
+                    <button class="btn-primary btn btn-full-width" type="submit">Create</button>
+                </EditForm>
+                @if (Message != null)
+                {
+                    <div class="mt-2 alert alert-danger">
+                        <span>@Message</span>
+                        <button type="button" class="close">
+                            <span @onclick="RemoveMessage">&times;</span>
+                        </button>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button class="btn-danger btn btn-full-width" data-dismiss="modal" @onclick="RemoveMessage">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@code
+{
+
+} 

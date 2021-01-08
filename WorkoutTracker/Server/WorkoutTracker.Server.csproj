@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>WorkoutTracker.Server-851C99E0-5FD4-4A6D-ADA2-AC090C4BBF75</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20210107201148_EFRelationshipFix.cs" />
+    <Compile Remove="Data\Migrations\20210107201148_EFRelationshipFix.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210108130240_AmendIdsToBeSpecific.cs" />
+    <Compile Remove="Data\Migrations\20210108130240_AmendIdsToBeSpecific.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210108132244_test.cs" />
+    <Compile Remove="Data\Migrations\20210108132244_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210108134844_Test.cs" />
+    <Compile Remove="Data\Migrations\20210108134844_Test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210108135052_IdChange.cs" />
+    <Compile Remove="Data\Migrations\20210108135052_IdChange.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\WorkoutTracker.Client.csproj" />
+    <ProjectReference Include="..\Shared\WorkoutTracker.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

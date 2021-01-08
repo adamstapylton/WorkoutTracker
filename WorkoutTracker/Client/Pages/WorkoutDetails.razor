@@ -1,0 +1,86 @@
+﻿@page "/workouts/{WorkoutId:int}"
+@using WorkoutTracker.Client.Components.Modals;
+@using WorkoutTracker.Client.Components;
+
+
+<div class="row d-flex mb-2">
+    <a class="btn btn-primary mr-auto" href="workouts"><span class="oi oi-arrow-left"></span>Back To Workouts</a>
+    @if (Workout != null)
+    {
+        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteWorkoutModal">
+            <span class="oi oi-trash"></span>
+            Delete
+        </button>
+    }
+
+</div>
+
+@if (Workout != null)
+{
+    <h3>@Workout.Name</h3>
+    <div class="row mb-2">
+
+        <div id="workoutMediaButtons">
+            <button class="btn btn-primary" @onclick="ToggleAddExercises">
+                <i class="fas fa-plus mr-2"></i> Add
+            </button>
+            <a class="ml-2 btn btn-success " href="workouts/@Workout.Id/recordworkout">
+                <i class="fas fa-dumbbell mr-2 mr-2"></i> Start
+            </a>
+            <span>@Message</span>
+        </div>
+    </div>
+    <div class="mb-2 row @DisplayClass " id="addExerciseOptions">
+        <EditForm Model="ExerciseToAdd" OnValidSubmit="AddExercise">
+            @if (ExerciseOptions != null)
+            {
+                <div class="form-group">
+                    <label>Exercise</label>
+                    <select @bind="ExerciseToAdd.ExerciseId" class="form-control">
+                        @foreach (var muscleGroup in MuscleGroups)
+                        {
+                            <optgroup label="@muscleGroup.Name">
+                                @foreach (var exercise in ExerciseOptions.Where(ex => ex.MuscleGroup.Id == muscleGroup.Id))
+                                {
+                                    <option value="@exercise.Id">@exercise.Name</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-full-width" type="submit">
+
+                    <span>Add To Workout</span>
+
+                </button>
+            }
+        </EditForm>
+    </div>
+    <div class="row">
+
+        @if (Workout.WorkoutExercises != null)
+        {
+            <ul id="workoutList" ondragover="event.preventDefault()">
+            @foreach (var exercise in WorkoutExercises)
+            {
+                <ExerciseListItem Exercise="exercise" ExerciseToDelete="UpdateExerciseToDelete" Workout="Workout" DraggedCallback="ListUpdated" DragStarted="ItemBeingDragged"></ExerciseListItem>
+            }
+            </ul>
+        }
+        else
+        {
+            <LoadingSpinner></LoadingSpinner>
+        }
+        </div>
+
+    <DeleteWorkoutModal Workout="Workout"></DeleteWorkoutModal>
+    <DeleteExerciseModal Workout="Workout" Exercise="ExerciseToDelete" ExerciseRemoved="UpdateWorkout"></DeleteExerciseModal>
+}
+else
+{
+    <h3>@Message</h3>
+}
+
+@code {
+    
+}
