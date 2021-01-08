@@ -28,7 +28,6 @@ namespace WorkoutTracker.Server.Areas.Identity.Pages.Account
 
         public string EmailConfirmationUrl { get; set; }
 
-        public string LoginLink { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
         {
@@ -58,7 +57,7 @@ namespace WorkoutTracker.Server.Areas.Identity.Pages.Account
                     protocol: Request.Scheme);
             }
 
-            LoginLink = "/Account/Login";
+
 
             return Page();
         }
